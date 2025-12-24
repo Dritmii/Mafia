@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мафия - Планшет ведущего</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Кнопка помощи -->
+    <button id="btn-help" class="help-button" title="Правила игры">?</button>
+    
+    <!-- Модальное окно с правилами -->
+    <div id="help-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Правила игры и описание ролей</h2>
+            <div id="help-content"></div>
+        </div>
+    </div>
+    
+    <!-- Экран выбора количества игроков -->
+    <div id="screen-players" class="screen active">
+        <div class="container">
+            <h1>Настройка игры</h1>
+            <div class="player-selector">
+                <label for="player-count">Количество игроков:</label>
+                <input type="number" id="player-count" min="4" max="20" value="8">
+                <button id="btn-next-players" class="btn-primary">Далее</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран настройки ролей -->
+    <div id="screen-roles" class="screen">
+        <div class="container">
+            <h1>Настройка ролей</h1>
+            <div class="roles-config">
+                <div class="role-suggestion">
+                    <p>Рекомендуемое распределение:</p>
+                    <div id="suggested-roles"></div>
+                </div>
+                <div class="custom-roles">
+                    <h2>Добавить необычные роли:</h2>
+                    <div id="available-roles"></div>
+                </div>
+                <div class="selected-roles">
+                    <h2>Выбранные роли:</h2>
+                    <div id="selected-roles-list"></div>
+                </div>
+                <button id="btn-next-roles" class="btn-primary">Далее</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран ввода имен игроков -->
+    <div id="screen-names" class="screen">
+        <div class="container">
+            <h1>Имена игроков</h1>
+            <div id="players-list"></div>
+            <button id="btn-next-names" class="btn-primary">Начать распределение ролей</button>
+        </div>
+    </div>
+
+    <!-- Экран распределения ролей -->
+    <div id="screen-assignment" class="screen">
+        <div class="container">
+            <h1>Распределение ролей</h1>
+            <div class="assignment-display">
+                <div class="current-player">
+                    <h2 id="current-player-name">Игрок 1</h2>
+                    <div id="role-display" class="role-display hidden">
+                        <div class="role-card">
+                            <span id="role-text"></span>
+                        </div>
+                    </div>
+                    <button id="btn-show-role" class="btn-primary">Показать роль</button>
+                    <button id="btn-next-player" class="btn-primary hidden">Следующий игрок</button>
+                </div>
+                <div class="progress">
+                    <p>Игрок <span id="current-index">1</span> из <span id="total-players">8</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран просмотра всех ролей -->
+    <div id="screen-roles-overview" class="screen">
+        <div class="container">
+            <h1>Распределение ролей</h1>
+            <div class="roles-overview">
+                <div class="roles-section">
+                    <h2>Роли</h2>
+                    <div id="roles-list"></div>
+                </div>
+                <div class="peaceful-section">
+                    <h2>Мирные жители</h2>
+                    <div id="peaceful-list"></div>
+                </div>
+            </div>
+            <button id="btn-start-game" class="btn-primary">Начать игру</button>
+        </div>
+    </div>
+
+    <!-- Экран ночной фазы -->
+    <div id="screen-night" class="screen">
+        <div class="container">
+            <h1>Ночь</h1>
+            <div class="night-phase">
+                <div class="night-instruction">
+                    <p id="night-text"></p>
+                </div>
+                <div id="night-selection" class="night-selection hidden">
+                    <h3>Выберите игрока:</h3>
+                    <div id="night-players-list" class="players-grid"></div>
+                </div>
+                <div id="night-summary" class="night-summary hidden">
+                    <h3>Итоги ночи:</h3>
+                    <div id="night-results"></div>
+                    <button id="btn-end-night" class="btn-primary">Завершить ночь</button>
+                </div>
+                <button id="btn-next-night-action" class="btn-primary hidden">Далее</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран голосования -->
+    <div id="screen-voting" class="screen">
+        <div class="container">
+            <h1>Голосование</h1>
+            <div class="voting-phase">
+                <div class="voting-instruction">
+                    <p>Выберите игрока, против которого голосуют:</p>
+                </div>
+                <div id="voting-target-list" class="players-grid"></div>
+                <div id="voting-voters" class="voting-voters hidden">
+                    <h3>Кто голосует против <span id="voting-target-name"></span>:</h3>
+                    <div id="voting-voters-list" class="players-grid"></div>
+                    <button id="btn-confirm-vote" class="btn-primary">Подтвердить голосование</button>
+                </div>
+                <div id="voting-results" class="voting-results hidden">
+                    <h3>Результаты голосования:</h3>
+                    <div id="voting-results-list"></div>
+                    <div style="display:flex;gap:10px;align-items:center;margin-top:10px;">
+                        <button id="btn-end-voting" class="btn-primary">Завершить голосование</button>
+                        <button id="btn-skip-vote" class="btn-primary">Пропустить голосование</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

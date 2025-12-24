@@ -1,0 +1,636 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+h1 {
+    text-align: center;
+    color: #667eea;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+h2 {
+    color: #764ba2;
+    margin: 20px 0 15px 0;
+    font-size: 1.5em;
+}
+
+h3 {
+    color: #555;
+    margin: 15px 0 10px 0;
+}
+
+/* Кнопки */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin: 20px auto;
+    display: block;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Выбор игроков */
+.player-selector {
+    text-align: center;
+}
+
+.player-selector label {
+    display: block;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+#player-count {
+    font-size: 2em;
+    padding: 15px;
+    width: 150px;
+    text-align: center;
+    border: 3px solid #667eea;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+/* Настройка ролей */
+.roles-config {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.role-suggestion {
+    background: #f0f4ff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#suggested-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.role-tag {
+    background: #667eea;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.role-count-btn {
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: background 0.2s;
+}
+
+.role-count-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.role-tag.mafia {
+    background: #dc3545;
+}
+
+.role-tag.peaceful {
+    background: #28a745;
+}
+
+.custom-roles {
+    margin: 30px 0;
+}
+
+#available-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.role-button {
+    background: white;
+    border: 2px solid #667eea;
+    color: #667eea;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.2s;
+}
+
+.role-button:hover {
+    background: #667eea;
+    color: white;
+}
+
+.role-button.selected {
+    background: #667eea;
+    color: white;
+}
+
+#selected-roles-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+    min-height: 50px;
+}
+
+.selected-role {
+    background: #764ba2;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.remove-role {
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Имена игроков */
+#players-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.player-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.player-input label {
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: bold;
+}
+
+.player-input input {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.2s;
+}
+
+.player-input input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Распределение ролей */
+.assignment-display {
+    text-align: center;
+}
+
+.current-player {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#current-player-name {
+    font-size: 3em;
+    color: #667eea;
+    margin-bottom: 40px;
+}
+
+.role-display {
+    margin: 40px 0;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.role-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 80px;
+    border-radius: 20px;
+    font-size: 2.5em;
+    font-weight: bold;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.progress {
+    margin-top: 30px;
+    font-size: 1.2em;
+    color: #666;
+}
+
+/* Просмотр ролей */
+.roles-overview {
+    margin: 30px 0;
+}
+
+.roles-section, .peaceful-section {
+    margin: 30px 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+}
+
+#roles-list, #peaceful-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.role-item {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #667eea;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.role-item.mafia {
+    border-left-color: #dc3545;
+}
+
+.role-item.peaceful {
+    border-left-color: #28a745;
+}
+
+.role-item .role-name {
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 5px;
+}
+
+.role-item.mafia .role-name {
+    color: #dc3545;
+}
+
+.role-item.peaceful .role-name {
+    color: #28a745;
+}
+
+.role-item .player-name {
+    color: #666;
+}
+
+/* Ночная фаза */
+.night-phase {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.night-instruction {
+    background: #f0f4ff;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#night-text {
+    font-size: 1.5em;
+    color: #333;
+    line-height: 1.6;
+}
+
+.night-selection {
+    margin: 30px 0;
+}
+
+.players-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.player-card {
+    background: white;
+    border: 3px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.player-card:hover {
+    border-color: #667eea;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.player-card.selected {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.player-card.dead {
+    opacity: 0.5;
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.night-summary {
+    background: #fff3cd;
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+#night-results {
+    margin: 20px 0;
+    font-size: 1.2em;
+    line-height: 1.8;
+}
+
+.night-result-item {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.night-result-item.killed {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.night-result-item.healed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.night-result-item.alibi {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Голосование */
+.voting-phase {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.voting-instruction {
+    background: #f0f4ff;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.voting-voters {
+    margin: 30px 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 15px;
+}
+
+.voting-results {
+    margin: 30px 0;
+    padding: 20px;
+    background: #e7f3ff;
+    border-radius: 15px;
+}
+
+#voting-results-list {
+    margin: 20px 0;
+}
+
+.voting-result-item {
+    padding: 15px;
+    margin: 10px 0;
+    background: white;
+    border-radius: 10px;
+    border-left: 5px solid #667eea;
+}
+
+.voting-result-item .target {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.voting-result-item .voters {
+    color: #666;
+}
+
+.voting-result-item .votes-count {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+/* Кнопка помощи */
+.help-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: transform 0.2s;
+}
+
+.help-button:hover {
+    transform: scale(1.1);
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: auto;
+}
+
+.modal.active {
+    display: block;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 2em;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+.help-section {
+    margin: 30px 0;
+}
+
+.help-section h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+.role-help-item {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #667eea;
+    background: #f9f9f9;
+}
+
+.role-help-item.mafia {
+    border-left-color: #dc3545;
+    background: #fff5f5;
+}
+
+.role-help-item.peaceful {
+    border-left-color: #28a745;
+    background: #f0fff4;
+}
+
+.role-help-item.neutral {
+    border-left-color: #ffc107;
+    background: #fffef0;
+}
+
+.role-help-item strong {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.role-help-item p {
+    margin: 10px 0;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Адаптивность для планшета */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    #current-player-name {
+        font-size: 2em;
+    }
+
+    .role-card {
+        font-size: 1.8em;
+        padding: 30px 50px;
+    }
+
+    .players-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+}
+
