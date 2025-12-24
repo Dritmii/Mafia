@@ -124,9 +124,50 @@ function getSuggestedRoles(playerCount) {
 }
 
 // Инициализация
+// Intro sequence then initialize
 document.addEventListener('DOMContentLoaded', () => {
-    initializeGame();
+    runIntroThenInit();
 });
+
+function runIntroThenInit() {
+    const overlay = document.getElementById('intro-overlay');
+    const textEl = document.getElementById('intro-text');
+    if (!overlay || !textEl) {
+        initializeGame();
+        return;
+    }
+
+    // Helper to show a word for a duration
+    const showWord = (word, duration) => {
+        return new Promise(resolve => {
+            textEl.textContent = word;
+            // trigger show
+            requestAnimationFrame(() => {
+                textEl.classList.add('show');
+            });
+            setTimeout(() => {
+                textEl.classList.remove('show');
+                setTimeout(resolve, 200);
+            }, duration);
+        });
+    };
+
+    (async () => {
+        // Первый экран
+        await showWord('Мафия', 900);
+        // Небольшая пауза
+        await new Promise(r => setTimeout(r, 150));
+        // Второй экран
+        await showWord('Dritmii', 900);
+        // Скрываем оверлей полностью
+        overlay.style.transition = 'opacity 400ms ease';
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+            overlay.remove();
+            initializeGame();
+        }, 450);
+    })();
+}
 
 function initializeGame() {
     // Экран выбора количества игроков
