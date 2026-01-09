@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мафия - Планшет ведущего</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <!-- Intro overlay -->
+    <button id="btn-help" class="help-button" title="Правила игры">?</button>
+
+    <button id="btn-players" class="players-button" title="Просмотр игроков">👥</button>
+
     <div id="intro-overlay">
         <div id="intro-text" class="intro-text"></div>
     </div>
-    <!-- Кнопка помощи -->
-    <button id="btn-help" class="help-button" title="Правила игры">?</button>
-    
-    <!-- Модальное окно с правилами -->
+
     <div id="help-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2>Правила игры и описание ролей</h2>
+            <h2>Правила игры</h2>
             <div id="help-content"></div>
         </div>
     </div>
-    
-    <!-- Экран выбора количества игроков -->
+
+    <div id="players-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Список игроков</h2>
+            <div id="players-content" class="players-modal-content"></div>
+        </div>
+    </div>
+
     <div id="screen-players" class="screen active">
         <div class="container">
             <h1>Настройка игры</h1>
@@ -35,7 +44,6 @@
         </div>
     </div>
 
-    <!-- Экран настройки ролей -->
     <div id="screen-roles" class="screen">
         <div class="container">
             <h1>Настройка ролей</h1>
@@ -57,7 +65,6 @@
         </div>
     </div>
 
-    <!-- Экран ввода имен игроков -->
     <div id="screen-names" class="screen">
         <div class="container">
             <h1>Имена игроков</h1>
@@ -66,7 +73,6 @@
         </div>
     </div>
 
-    <!-- Экран распределения ролей -->
     <div id="screen-assignment" class="screen">
         <div class="container">
             <h1>Распределение ролей</h1>
@@ -88,7 +94,6 @@
         </div>
     </div>
 
-    <!-- Экран просмотра всех ролей -->
     <div id="screen-roles-overview" class="screen">
         <div class="container">
             <h1>Распределение ролей</h1>
@@ -106,7 +111,6 @@
         </div>
     </div>
 
-    <!-- Экран ночной фазы -->
     <div id="screen-night" class="screen">
         <div class="container">
             <h1>Ночь</h1>
@@ -128,7 +132,6 @@
         </div>
     </div>
 
-    <!-- Экран голосования -->
     <div id="screen-voting" class="screen">
         <div class="container">
             <h1>Голосование</h1>
@@ -154,7 +157,21 @@
         </div>
     </div>
 
+    <div id="screen-game-over" class="screen">
+        <div class="container">
+            <h1>Игра окончена</h1>
+            <h2 id="winner-text" style="font-size: 2em; margin-bottom: 30px; text-align: center;"></h2>
+
+            <div id="final-stats">
+                <h3>Итоговая таблица:</h3>
+                <div id="final-players-list" class="players-list-modal"></div>
+            </div>
+
+            <button id="btn-restart-game" class="btn-primary" style="margin-top: 30px;">Новая игра</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
-</html>
 
+</html>
